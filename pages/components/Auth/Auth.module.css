@@ -1,84 +1,94 @@
 .container {
-    display: flex;
-    width: 100%;
-    height: 80vh;
-    flex-flow: column;
-    align-items: flex-end;
-    justify-content: center;
-    background-image: url('/images/home-background.jpg');
-    background-size: cover;
-    padding: 0 5% 0 5%;
+  display: flex;
+  width: 100%;
+  height: 80vh;
+  flex-flow: column;
+  align-items: flex-end;
+  justify-content: center;
+  background-image: url('/images/home-background.jpg');
+  background-size: cover;
+  padding: 0 5% 0 5%;
 }
 
 .button {
-    display: block;
-    background: black;
-    color: white;
-    border: none;
-    cursor: pointer;
-    height: 50px;
-    width: 200px;
-    font-weight: 900;
-    text-transform: uppercase;
+  display: block;
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  height: 50px;
+  width: 200px;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 .formContainer {
-    display: flex;
-    flex-flow: column;
-    justify-content: space-around;
-    align-items: center;
-    height: 60%;
-    background-color: white;
-    padding: 20px;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 70%;
+  background-color: white;
+  padding: 20px;
 }
 
 .formHeader {
-    display: flex;
-    align-items: center;
-    flex-flow: column;
-    row-gap: 10px;
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+  row-gap: 10px;
 }
 
-.formHeader>svg,
-.field>svg {
-    cursor: pointer;
-    margin-right: 5px;
+.formHeader > svg,
+.field > svg {
+  cursor: pointer;
+  margin-right: 5px;
 }
 
 .field {
-    width: 100%;
-    height: 15%;
-    border: solid 1px black;
-    display: flex;
-    align-items: center;
-    padding-left: 0.5rem;
+  width: 100%;
+  height: 15%;
+  border: solid 1px black;
+  display: flex;
+  align-items: center;
+  padding-left: 0.5rem;
 }
 
 .field:focus-within {
-    border: solid 2px black;
+  border: solid 2px black;
 }
 
-.field>input {
-    width: 100%;
-    outline: none;
-    border: none;
+.field > input {
+  width: 100%;
+  outline: none;
+  border: none;
+}
+
+.displayToggle {
+  font-size: small;
+  align-self: flex-end;
+  cursor: pointer;
+  color: #000000;
+}
+.displayToggle:hover {
+  color: #000000;
 }
 
 @media (max-width: 767.98px) {
-    .formContainer {
-        height: 80%;
-        width: 70%;
-    }
+  .formContainer {
+    height: 80%;
+    width: 70%;
+  }
 
-    .container{
-        align-items: center;
-        padding: 0;
-    }
+  .container {
+    align-items: center;
+    padding: 0;
+  }
 }
 
 @media (min-width: 1399.98px) {
-    .formContainer {
-        height: 50%;
-        width: 40%;
-    }
+  .formContainer {
+    height: 50%;
+    width: 40%;
+  }
 }

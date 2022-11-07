@@ -127,6 +127,22 @@ export default function Auth(props: RootPageProps) {
               <FontAwesomeIcon color='#7d7d7d' icon={faCircleQuestion} />
             </OverlayTrigger>
           </div>
+          {displayForm === 'sign in' && (
+            <a
+              onClick={() => setDisplayForm('sign up')}
+              className={styles.displayToggle}
+            >
+              Are you new here? Create an account.
+            </a>
+          )}
+          {displayForm === 'sign up' && (
+            <a
+              onClick={() => setDisplayForm('sign in')}
+              className={styles.displayToggle}
+            >
+              Already have an account? Click here.
+            </a>
+          )}
           <button className={styles.button}>{displayForm}</button>
         </form>
       ) : (
