@@ -5,10 +5,19 @@ import {
   faEyeSlash,
   faCircleQuestion,
 } from '@fortawesome/free-solid-svg-icons';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import styles from './Auth.module.css';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import Request from '../../../lib/resquest';
+import { RootPageProps } from '../../index';
+import Router from 'next/router';
+import { signIn } from 'next-auth/react';
+
+type UserAuthInfo = {
+  name: string;
+  password: string;
+  email: string;
+};
 
 const popover = (
   <Tooltip id='password-rules'>
@@ -19,36 +28,52 @@ const popover = (
     <p>Minimum 8 characters</p>
   </Tooltip>
 );
-export async function getServerSideProps(context) {
-  return {
-    props: { ctx: context }, // will be passed to the page component as props
-  };
-}
-const Auth = (props) => {
+
+export default function Auth(props: RootPageProps) {
   const [displayForm, setDisplayForm] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [password, setPassword] = useState('');
+
   const togglePasswordView = () => setShowPassword(!showPassword);
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+
+  const redirect = (data: { userToken: string }) => {
+    Router.push('/home');
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
     switch (displayForm) {
       case 'sign up':
-        Request.post({
+        Request.post<UserAuthInfo, { userToken: string }>({
           path: '/auth/sign-up',
           data: { name, email, password },
-          successCallback: (a) => console.log(a),
+          successCallback: () => Router.push('/home'),
           failCalback: setError,
         });
         break;
       case 'sign in':
-        Request.post({ path: '/auth/sign-in', data: { email, password } });
+        const result = await signIn('credentials', {
+          redirect: false,
+          email: email,
+          password: password,
+        });
+        if (result && result.ok) {
+          Router.push('/home');
+        } else {
+          setError('There is a problem with your credentials.');
+        }
         break;
     }
   };
+  useEffect(() => {
+    if (props.redirect_reason) {
+      setError(props.redirect_reason);
+    }
+  }, []);
   return (
     <div className={styles.container}>
       {displayForm ? (
@@ -125,6 +150,4 @@ const Auth = (props) => {
       )}
     </div>
   );
-};
-
-export default Auth;
+}

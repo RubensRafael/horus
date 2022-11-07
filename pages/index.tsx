@@ -1,6 +1,9 @@
-import Image from 'next/image';
 import Auth from './components/Auth/Auth';
 
-export default function Home() {
-  return <Auth />;
+export type RootPageProps = {
+  redirect_reason: string;
+};
+
+export default function Home(props: RootPageProps) {
+  return <Auth {...props} />;
 }
